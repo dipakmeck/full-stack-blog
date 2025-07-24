@@ -1,11 +1,12 @@
 import { getAllBlogs } from '@/lib/helpers'
 import Image from 'next/image'
+import BlogItem from './BlogItem'
 
 const blogs = [
   {
     id:"687e266dc46d0c2fa8b9278adfd",
     title:"NextJS is Awesome",
-    description:"<p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p>",imageUrl:"http://res.cloudinary.com/ddspmoji8/image/upload/v1753097834/nextjs-full-stack-blog/ksb579sm2mihahed4tkb.png",
+    description:"<p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p><p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p><p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p>",imageUrl:"https://res.cloudinary.com/ddspmoji8/image/upload/v1753097834/nextjs-full-stack-blog/ksb579sm2mihahed4tkb.png",
     userId:"686f8d4ffe76db0c15bcfa94",
     createdAt:"2025-07-21T11:37:17.438Z",
     updatedAt:"2025-07-21T11:50:22.720Z",
@@ -15,7 +16,7 @@ const blogs = [
   {
     id:"687e266dc46d0c2fa8b9278adfsd",
     title:"NextJS is Awesome",
-    description:"<p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p>",imageUrl:"http://res.cloudinary.com/ddspmoji8/image/upload/v1753097834/nextjs-full-stack-blog/ksb579sm2mihahed4tkb.png",
+    description:"<p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p><p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p><p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p>",imageUrl:"https://res.cloudinary.com/ddspmoji8/image/upload/v1753097834/nextjs-full-stack-blog/ksb579sm2mihahed4tkb.png",
     userId:"686f8d4ffe76db0c15bcfa94",
     createdAt:"2025-07-21T11:37:17.438Z",
     updatedAt:"2025-07-21T11:50:22.720Z",
@@ -25,7 +26,7 @@ const blogs = [
   {
     id:"687e266dc46d0c2fa8b9278adfs",
     title:"NextJS is Awesome",
-    description:"<p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p>",imageUrl:"http://res.cloudinary.com/ddspmoji8/image/upload/v1753097834/nextjs-full-stack-blog/ksb579sm2mihahed4tkb.png",
+    description:"<p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p><p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p><p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p>",imageUrl:"https://res.cloudinary.com/ddspmoji8/image/upload/v1753097834/nextjs-full-stack-blog/ksb579sm2mihahed4tkb.png",
     userId:"686f8d4ffe76db0c15bcfa94",
     createdAt:"2025-07-21T11:37:17.438Z",
     updatedAt:"2025-07-21T11:50:22.720Z",
@@ -35,7 +36,7 @@ const blogs = [
   {
     id:"687e266dc46d0c2fa8bdfsf9278a",
     title:"NextJS is Awesome",
-    description:"<p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p>",imageUrl:"http://res.cloudinary.com/ddspmoji8/image/upload/v1753097834/nextjs-full-stack-blog/ksb579sm2mihahed4tkb.png",
+    description:"<p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p><p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p><p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p>",imageUrl:"https://res.cloudinary.com/ddspmoji8/image/upload/v1753097834/nextjs-full-stack-blog/ksb579sm2mihahed4tkb.png",
     userId:"686f8d4ffe76db0c15bcfa94",
     createdAt:"2025-07-21T11:37:17.438Z",
     updatedAt:"2025-07-21T11:50:22.720Z",
@@ -45,7 +46,7 @@ const blogs = [
   {
     id:"687e266dc46d0c2fdfsfa8b9278a",
     title:"NextJS is Awesome",
-    description:"<p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p>",imageUrl:"http://res.cloudinary.com/ddspmoji8/image/upload/v1753097834/nextjs-full-stack-blog/ksb579sm2mihahed4tkb.png",
+    description:"<p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p><p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p><p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p>",imageUrl:"https://res.cloudinary.com/ddspmoji8/image/upload/v1753097834/nextjs-full-stack-blog/ksb579sm2mihahed4tkb.png",
     userId:"686f8d4ffe76db0c15bcfa94",
     createdAt:"2025-07-21T11:37:17.438Z",
     updatedAt:"2025-07-21T11:50:22.720Z",
@@ -55,7 +56,7 @@ const blogs = [
   {
     id:"687e266ddfsdc46d0c2fa8b9278a",
     title:"NextJS is Awesome",
-    description:"<p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p>",imageUrl:"http://res.cloudinary.com/ddspmoji8/image/upload/v1753097834/nextjs-full-stack-blog/ksb579sm2mihahed4tkb.png",
+    description:"<p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p><p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p><p>Hello, NextJS is really Awesome. </p><p>You should learn it.</p>",imageUrl:"https://res.cloudinary.com/ddspmoji8/image/upload/v1753097834/nextjs-full-stack-blog/ksb579sm2mihahed4tkb.png",
     userId:"686f8d4ffe76db0c15bcfa94",
     createdAt:"2025-07-21T11:37:17.438Z",
     updatedAt:"2025-07-21T11:50:22.720Z",
@@ -87,8 +88,12 @@ const HomeSection = async () => {
           <h2 className="text-2xl font-semibold">Recent Articles</h2>
         </div>
         <div className="flex w-full flex-wrap justify-center">
-          {JSON.stringify(blogs)}
+          {blogs.slice(0,6).map((blog)=> (<BlogItem {...blog} key={blog.id} />))}
         </div>
+        <div className="w-full p-4 text-center">
+        <button className="mx-auto mt-auto border-[1px] p-3 rounded-lg hover:bg-violet-600 hover:text-violet-100 duration-500">Explore More Articles</button>
+        </div>
+        <hr className='p-3 my-4 w-full' />
       </div>
     </section>
   )
