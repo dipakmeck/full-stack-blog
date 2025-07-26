@@ -67,6 +67,7 @@ const blogs = [
 
 const HomeSection = async () => {
   // const blogs = await getAllBlogs(6);
+
   return (
     <section className='w-full my-4'>
       <div className='w-full flex min-xs:flex-col min-md:flex-row justify-center items-center'>
