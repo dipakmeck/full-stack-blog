@@ -1,5 +1,6 @@
-import { categories } from "@/lib/utils"
+import { blogs, categories } from "@/lib/utils"
 import { FaSearch } from "react-icons/fa"
+import BlogItem from "../components/BlogItem"
 
 const BlogsPage = () => {
   return (
@@ -8,7 +9,7 @@ const BlogsPage = () => {
         <h4 className="text-3xl font-semibold">Explore Articles On Various Categories</h4>
         <p className="text-xl font-semibold">Practical Articles For Learning Anything</p>
       </div>
-      <nav className="bg-gray-100 border w-full flex my-4 static top-0 bg-center gap-4 h-20 md:p-8 xs:p-2 justify-between items-center">
+      <nav className="bg-gray-100 border w-full flex my-4 sticky top-0 bg-center gap-4 h-20 md:p-8 xs:p-2 justify-between items-center">
         <div className="mr-auto flex md:w-1/4 xs:w-2/4 items-center gap-6">
           <p className="font-semibold text-2xl">Filter</p>
           <select name="category" id="select" className="bg-white md:px-5 w-xs:px-2 w-3/4 mx-2 py-3 rounded-lg">
@@ -22,6 +23,9 @@ const BlogsPage = () => {
         </div>
 
       </nav>
+      <div className="flex gap-4 flex-wrap justify-center my-1">
+          {blogs.slice(0,6).map((blog)=> (<BlogItem {...blog} key={blog.id} />))}
+        </div>
     </section>
   )
 }
