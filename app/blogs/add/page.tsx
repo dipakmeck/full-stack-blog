@@ -3,23 +3,28 @@
 import { categories } from "@/lib/utils";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import JoditEditor from 'jodit-react';
+import dynamic from 'next/dynamic';
+//import JoditEditor from 'jodit-react';
 import { useForm } from "react-hook-form";
 import { ChangeEvent, useMemo, useRef, useState } from "react";
+import HTMLReactParser from "html-react-parser/lib/index";
+
+const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
 
 function BlogAdd() {
   const {data:session} = useSession();
-  const editor = useRef<HTMLCollection | null>(null);
+  console.log(session);
+  const editor = useRef(null);
   const [imageUrl, setImageUrl] = useState('');
   const [imageFile, setImageFile] = useState<File | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
   const {register, handleSubmit, formState:{errors}} = useForm();
-  const handleImageChange = (e:ChangeEvent<HTMLInputElement>) => {
-    //@ts-ignore
-    const file = e.target.files[0];
-    setImageFile(file);
-    setImageUrl(URL.createObjectURL(file))
-  }
+  // const handleImageChange = (e:ChangeEvent<HTMLInputElement>) => {
+  //   //@ts-ignore
+  //   const file = e.target.files[0];
+  //   setImageFile(file);
+  //   setImageUrl(URL.createObjectURL(file))
+  // }
 
   const [content, setContent] = useState('');
 
@@ -35,6 +40,7 @@ function BlogAdd() {
 
   const handlePost = (data: any) => {
     console.log("Data", data)
+    console.log("Editor HTML", HTMLReactParser(content))
   }
   return (
   <section className="w-full">
@@ -61,7 +67,7 @@ function BlogAdd() {
     </div>
     <div className="w-full flex my-5">
     <select  className="md:w-[500px] sm:w-[300px] m-auto text-slate-900 bg-gray-100 p-4 rounded-xl" id=""  {...register("category", {required: true})}>
-      {categories.map((item)=><option value={item.id}>{item.name}</option>)}
+      {categories.map((item)=><option key={item.id} value={item.id}>{item.name}</option>)}
     </select>
     </div>
     <JoditEditor
@@ -70,8 +76,11 @@ function BlogAdd() {
 			config={config}
 			tabIndex={1} // tabIndex of textarea
 			onBlur={newContent => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
-			onChange={newContent => {}}
+			onChange={newContent => setContent(newContent)}
 		/>
+    {/* <div className="w-full">
+      {HTMLReactParser(content)}
+    </div> */}
   </section>
   )
 }
