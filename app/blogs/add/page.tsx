@@ -7,16 +7,16 @@ import dynamic from 'next/dynamic';
 //import JoditEditor from 'jodit-react';
 import { useForm } from "react-hook-form";
 import { ChangeEvent, useMemo, useRef, useState } from "react";
-import HTMLReactParser from "html-react-parser/lib/index";
-
+// import HTMLReactParser from "html-react-parser/lib/index";
+import { Toaster, toast } from "react-hot-toast";
 const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
 
-function BlogAdd() {
+function BlogAdd () {
   const {data:session} = useSession();
   console.log(session);
   const editor = useRef(null);
   const [imageUrl, setImageUrl] = useState('');
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  //const [imageFile, setImageFile] = useState<File | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
   const {register, handleSubmit, formState:{errors}} = useForm();
   // const handleImageChange = (e:ChangeEvent<HTMLInputElement>) => {
@@ -38,12 +38,43 @@ function BlogAdd() {
   [placeholder]
   );
 
-  const handlePost = (data: any) => {
-    console.log("Data", data)
-    console.log("Editor HTML", HTMLReactParser(content))
+  const handlePost = async (data: any) => {
+    const formData = new FormData();
+    const postData = JSON.stringify({
+      title: headingRef.current?.innerText,
+      description: content,
+      location: data.location,
+      userId: session?.user.id,
+      categoryId: data.category,
+    });
+    console.log(postData);
+    // console.log(data.image[0]);
+
+    formData.append('postData', postData);
+    formData.append('image', data.image[0]);
+    // console.log(formData.get('postData'));
+    // console.log(formData.get('image'));
+    // console.log("Data", data)
+    // console.log("Editor HTML", HTMLReactParser(content))
+    console.log(formData);
+    try {
+      toast.loading("Sending your post to world.", {id:"postData"});
+
+      await fetch("http://localhost:3000/api/blogs", {
+        method:"POST",
+        body: formData,
+        cache: "no-store"
+      });
+
+      toast.success("Sent your post to world.", {id:"postData"});
+    } catch(err) {
+      toast.error("Sending failed.", {id:"postData"});
+      return console.log(err);
+    }
   }
   return (
   <section className="w-full">
+    <Toaster position="top-right" />
     <div className="flex justify-between p-4 item-center">
       <div className="w-1/4">
         <span className="font-extrabold mx-3">Author</span>
@@ -85,4 +116,4 @@ function BlogAdd() {
   )
 }
 
-export default BlogAdd
+export default BlogAdd;

@@ -1,25 +1,25 @@
 import { connectToDb, generateErrorMessage, generateSuccessMessage } from "@/lib/helpers";
 import prisma from "@/prisma";
 import { UploadApiResponse, v2 } from "cloudinary";
-import { resolve } from "path";
+//import { resolve } from "path";
 
 async function uploadImage(file:Blob) {
   return new Promise<UploadApiResponse>(async (resolve, reject) => {
-  const buffer = Buffer.from(await file.arrayBuffer());
-  v2.uploader.upload_stream(
-    {
-      resource_type: "auto",
-      folder:"nextjs-full-stack-blog"
-    },
-    (err, result)=>{
-      if(err) {
-        console.log(err);
-        return reject(err);
-      } else if (result) {
-        return resolve(result);
-      }
-  }).end(buffer);
-});
+    const buffer = Buffer.from(await file.arrayBuffer());
+    v2.uploader.upload_stream(
+      {
+        resource_type: "auto",
+        folder:"nextjs-full-stack-blog"
+      },
+      (err, result)=>{
+        if(err) {
+          console.log(err);
+          return reject(err);
+        } else if (result) {
+          return resolve(result);
+        }
+    }).end(buffer);
+  });
 }
 
 export const GET = async () => {
@@ -67,8 +67,13 @@ export const POST = async (req:Request) => {
 
     const blog = await prisma.blog.create({
       data: {
-        title, description, location, categoryId, userId, imageUrl: uploadedFile?.url ?? null
-      }
+        title,
+        description,
+        location,
+        categoryId,
+        userId,
+        imageUrl: uploadedFile?.url ?? null,
+      },
     })
     return generateSuccessMessage({blog}, 201);
   } catch (err) {
