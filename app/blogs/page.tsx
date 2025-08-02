@@ -1,8 +1,11 @@
-import { blogs, categories } from "@/lib/utils"
+import { categories } from "@/lib/utils"
 import { FaSearch } from "react-icons/fa"
 import BlogItem from "../components/BlogItem"
+import { getAllBlogs } from "@/lib/helpers"
+import { BlogItemType, CategoryType } from "@/lib/types";
 
-const BlogsPage = () => {
+const BlogsPage = async () => {
+  const blogs = await getAllBlogs();
   return (
     <section className="w-full h-full">
       <div className="flex flex-col gap-3 my-10 p-8">
@@ -13,7 +16,7 @@ const BlogsPage = () => {
         <div className="mr-auto flex md:w-1/4 xs:w-2/4 items-center gap-6">
           <p className="font-semibold text-2xl">Filter</p>
           <select name="category" id="select" className="bg-white md:px-5 w-xs:px-2 w-3/4 mx-2 py-3 rounded-lg">
-          {categories.map((item)=><option className="rounded-md bg-gray-100" key={item.id} value={item.id}>{item.name}</option>)}
+          {categories.map((item: CategoryType)=><option className="rounded-md bg-gray-100" key={item.id} value={item.id}>{item.name}</option>)}
           </select>
         </div>
         <div className="w-2/4 flex ml-auto md:gap-6 xs:gap-2 item-center">
@@ -24,7 +27,7 @@ const BlogsPage = () => {
 
       </nav>
       <div className="flex gap-4 flex-wrap justify-center my-1">
-          {blogs.slice(0,6).map((blog)=> (<BlogItem {...blog} key={blog.id} />))}
+          {blogs.slice(0,6).map((blog:BlogItemType)=> (<BlogItem {...blog} key={blog.id} />))}
         </div>
     </section>
   )

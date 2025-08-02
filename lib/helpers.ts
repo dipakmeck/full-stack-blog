@@ -19,10 +19,19 @@ export const generateErrorMessage = (data:any, status: number) => {
 }
 
 export const getAllBlogs = async (count?: number) => {
-  const res = await fetch("http://localhost:3000/api/blogs", {cache:"no-cache"});
+  const res = await fetch("http://localhost:3000/api/blogs", {});
   const data = await res.json();
   if(count) {
     return data.blogs.slice(0,count);
   }
   return data.blogs;
+}
+
+export const getBlogById = async (id: string) => {
+  const res = await fetch(`http://localhost:3000/api/blogs/${id}`, {});
+  const data = await res.json();
+  // if(id) {
+  //   return data.blogs.slice(0,count);
+  // }
+  return data.blog;
 }

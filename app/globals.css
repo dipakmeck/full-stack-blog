@@ -120,3 +120,33 @@
     @apply bg-background text-foreground;
   }
 }
+
+section > h1 {
+  margin: 40px auto;
+}
+
+section > h2 {
+  margin: 40px auto;
+}
+
+section > h3 {
+  margin: 40px auto;
+}
+
+section > p {
+  margin: 40px auto;
+}
+
+code {
+  margin: 10px auto;
+  background: rgb(241,241,241);
+  color: black;
+  padding: 10px;
+}
+
+section li {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  list-style-type: disc;
+
+}
