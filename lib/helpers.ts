@@ -35,3 +35,12 @@ export const getBlogById = async (id: string) => {
   // }
   return data.blog;
 }
+
+export const getUserById = async (id: string) => {
+  const res = await fetch(`http://localhost:3000/api/users/${id}`, {cache: "no-store"});
+  const data = await res.json();
+  // if(id) {
+  //   return data.blogs.slice(0,count);
+  // }
+  return data;
+}

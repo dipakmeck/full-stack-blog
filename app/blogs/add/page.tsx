@@ -13,7 +13,7 @@ const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
 
 function BlogAdd () {
   const {data:session} = useSession();
-  console.log(session);
+  //console.log(session);
   const editor = useRef(null);
   const [imageUrl, setImageUrl] = useState('');
   //const [imageFile, setImageFile] = useState<File | null>(null);
