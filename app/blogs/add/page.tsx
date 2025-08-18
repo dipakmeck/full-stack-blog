@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic';
 import { useForm } from "react-hook-form";
 import { ChangeEvent, useMemo, useRef, useState } from "react";
 // import HTMLReactParser from "html-react-parser/lib/index";
-import { Toaster, toast } from "react-hot-toast";
+import {  toast } from "react-hot-toast";
 const JoditEditor = dynamic(() => import('jodit-react'), { ssr: false });
 
 function BlogAdd () {
@@ -74,7 +74,6 @@ function BlogAdd () {
   }
   return (
   <section className="w-full">
-    <Toaster position="top-right" />
     <div className="flex justify-between p-4 item-center">
       <div className="w-1/4">
         <span className="font-extrabold mx-3">Author</span>

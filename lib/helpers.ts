@@ -19,7 +19,7 @@ export const generateErrorMessage = (data:any, status: number) => {
 }
 
 export const getAllBlogs = async (count?: number) => {
-  const res = await fetch("http://localhost:3000/api/blogs", {});
+  const res = await fetch("http://localhost:3000/api/blogs", {next: {revalidate: 60}});
   const data = await res.json();
   if(count) {
     return data.blogs.slice(0,count);
@@ -28,7 +28,7 @@ export const getAllBlogs = async (count?: number) => {
 }
 
 export const getBlogById = async (id: string) => {
-  const res = await fetch(`http://localhost:3000/api/blogs/${id}`, {});
+  const res = await fetch(`http://localhost:3000/api/blogs/${id}`, {cache: "only-if-cached"});
   const data = await res.json();
   // if(id) {
   //   return data.blogs.slice(0,count);

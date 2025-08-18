@@ -20,7 +20,7 @@ const HomeSection = async () => {
           </p>
         </div>
         <div className='min-md:w-2/4 min-xs:w-3/4 min-md:mx-2 min-xs:my-2'>
-          <Image className='w-full rounded-2xl drop-shadow-2xl' alt="CarouselImage" width={300} height={200} src={"https://images.unsplash.com/photo-1749740577807-e20202e60da4"} />
+          <Image loading="lazy" className='w-full rounded-2xl drop-shadow-2xl' alt="CarouselImage" width={300} height={200} src={"https://images.unsplash.com/photo-1749740577807-e20202e60da4"} />
         </div>
       </div>
       <hr className='p-3 my-4' />

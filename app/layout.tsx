@@ -3,6 +3,7 @@ import "./globals.css";
 import Provider from "./components/Provider";
 import Appbar from "./components/Appbar";
 import Footer from "./components/Footer";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Blogify",
@@ -16,10 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className="min-h-screen flex flex-col"
+      <body suppressHydrationWarning className={`antialiased min-h-screen flex flex-col`}
       >
         <Provider>
+          <Toaster position="top-right" />
           <Appbar />
           <main className="flex-1">{children}</main>
           <Footer />
