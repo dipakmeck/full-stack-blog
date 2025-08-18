@@ -48,7 +48,7 @@ const BlogItem = (props: Props) => {
       </CardHeader>
       <CardTitle className="p-3">{props.title}</CardTitle>
       <CardContent className="w-full text-slate-900">
-        <div className="tracking-wide w-full px-2 py-1 text-left" dangerouslySetInnerHTML={{__html: props.description.slice(0,300)}}></div>
+        <div className="tracking-wide w-full px-2 py-1 text-left" dangerouslySetInnerHTML={{__html: `${props.description.slice(0,120)}...`}}></div>
       </CardContent>
       <CardFooter className="flex justify-between w-full h-full p-3">
         <Link href={`/blogs/view/${props.id}`} className="mt-auto border-[1px] p-3 rounded-lg hover:bg-violet-600 hover:text-violet-100 duration-500">View More</Link>
