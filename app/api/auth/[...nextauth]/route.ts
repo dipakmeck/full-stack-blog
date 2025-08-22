@@ -3,15 +3,15 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { connectToDb } from "@/lib/helpers";
+import { connectToDb, verifyUserDetails } from "@/lib/helpers";
 import prisma from "@/prisma";
 import bcrypt from "bcrypt";
 
 export const authOptions:AuthOptions = {
   providers: [
-    GithubProvider({clientId: "", clientSecret: ""}),
-    GoogleProvider({clientId: "", clientSecret: ""}),
-    FacebookProvider({clientId: "", clientSecret: ""}),
+    GithubProvider({clientId: process.env.GITHUB_CLIENT_ID as string, clientSecret: process.env.GITHUB_CLIENT_SECRET as string}),
+    GoogleProvider({clientId: process.env.GOOGLE_CLIENT_ID as string, clientSecret: process.env.GOOGLE_CLIENT_SECRET as string}),
+    FacebookProvider({clientId: process.env.FACEBOOK_CLIENT_ID as string, clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string}),
     CredentialsProvider({
       name:"credencials",
       credentials: {
@@ -61,6 +61,27 @@ export const authOptions:AuthOptions = {
       }
       return session;
     },
+    async signIn({account, user, profile}) {
+      if(account?.provider === "github" || account?.provider === "google") {
+        const newUser = await verifyUserDetails(user);
+
+        if(typeof newUser !== null) {
+          // @ts-ignore
+          user.id = newUser?.id;
+          if(profile && profile.sub) {
+            profile.sub = newUser?.id;
+          }
+        }
+      }
+      return true;
+    },
+    async redirect(params) {
+      return "/";
+    },
+  },
+  pages: {
+    signIn: "/login",
+    signOut: '/',
   }
 }
 const handler = NextAuth(authOptions);

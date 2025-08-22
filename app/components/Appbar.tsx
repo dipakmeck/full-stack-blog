@@ -1,7 +1,7 @@
 "use client";
 import React from 'react'
 import Logo from './Logo';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 const authlinks = [
   {id:"1-1",name:"Blogs", url:"/blogs"},
@@ -27,11 +27,17 @@ const Appbar = () => {
         <div className='flex items-center gap-4 p-2'>
           {(status === "authenticated" ? authlinks : nonAuthLinks).map(
             (item) => (
+
               <Link key={item.id} href={item.url}
               className='text-gray-900 text-lg font-semibold hover:text-violet-600 duration-300'
               >{item.name}</Link>
             )
           )}
+
+{(status === "authenticated" ? <button className="font-bold text-purple-700 cursor-pointer" onClick={()=> signOut()}>LOGOUT</button> : '')}
+
+
+
         </div>
       </nav>
     </section>

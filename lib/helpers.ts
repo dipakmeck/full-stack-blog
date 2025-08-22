@@ -1,4 +1,5 @@
 import prisma from "@/prisma"
+import { DefaultUser } from "next-auth";
 import { NextResponse } from "next/server";
 
 export const connectToDb = async () => {
@@ -28,7 +29,7 @@ export const getAllBlogs = async (count?: number) => {
 }
 
 export const getBlogById = async (id: string) => {
-  const res = await fetch(`http://localhost:3000/api/blogs/${id}`, {cache: "only-if-cached"});
+  const res = await fetch(`http://localhost:3000/api/blogs/${id}`, {cache: "no-cache"});
   const data = await res.json();
   // if(id) {
   //   return data.blogs.slice(0,count);
@@ -43,4 +44,22 @@ export const getUserById = async (id: string) => {
   //   return data.blogs.slice(0,count);
   // }
   return data;
+}
+
+export const verifyUserDetails = async (user: DefaultUser) => {
+  await connectToDb();
+  const isUserExists = await prisma.user.findFirst({
+    where: {email: user.email as string},
+  });
+  if(isUserExists) {
+    return null;
+  } else {
+    const newUser = await prisma.user.create({
+      data:{
+        email: user.email as string,
+        name: user.name as string,
+      },
+    });
+    return newUser;
+  }
 }

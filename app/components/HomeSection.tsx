@@ -5,6 +5,7 @@ import { BlogItemType } from '@/lib/types';
 
 
 
+
 const HomeSection = async () => {
   const blogs = await getAllBlogs(6);
 
@@ -29,7 +30,7 @@ const HomeSection = async () => {
           <h2 className="text-2xl font-semibold">Recent Articles</h2>
         </div>
         <div className="flex w-full flex-wrap justify-center">
-          {blogs.slice(0,6).map((blog: BlogItemType)=> (<BlogItem {...blog} key={blog.id} />))}
+          {blogs?.slice(0,6).map((blog: BlogItemType)=> (<BlogItem {...blog} key={blog.id} />))}
         </div>
         <div className="w-full p-4 text-center">
         <button className="mx-auto mt-auto border-[1px] p-3 rounded-lg hover:bg-violet-600 hover:text-violet-100 duration-500">Explore More Articles</button>

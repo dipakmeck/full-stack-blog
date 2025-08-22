@@ -11,6 +11,7 @@ import { UserItemType } from '@/lib/types'
 
 const ProfilePage = async () => {
   const sessionData = await getServerSession(authOptions);
+  console.log(sessionData)
   const userData: UserItemType = await getUserById(sessionData?.user.id ?? "");
   return (
     <section className="w-full h-full flex flex-col">
@@ -29,13 +30,13 @@ const ProfilePage = async () => {
       <hr className="p-2" />
       <div className="w-full h-full flex flex-col">
         <div className="mx-auto">
-          <p className="text-center bg-slate-100 p-3 rounded-md font-semibold"> Blogs count { userData._count.blogs }</p>
+          <p className="text-center bg-slate-100 p-3 rounded-md font-semibold"> Blogs count { userData._count?.blogs ? userData._count?.blogs : '0' }
+          </p>
         </div>
       </div>
       <div className="flex flex-wrap justify-center p-4 my-3">
-        {userData.blogs.map((blog)=>  <BlogItem {...blog} key={blog.id} isProfile={true}  /> )}
+        { userData?.blogs?.map((blog)=> <BlogItem {...blog} key={blog.id} isProfile={true}/>) }
       </div>
-      {/* {JSON.stringify(userData)} */}
     </section>
   )
 }

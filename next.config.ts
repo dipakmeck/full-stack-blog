@@ -18,11 +18,15 @@ const nextConfig: NextConfig = {
       protocol: 'http',
       hostname: 'res.cloudinary.com'
     },
-    // {
-    //   protocol: 'http', // Can also be http
-    //   hostname: 'localhost',
-    //   port: '3000', // Example for local development server
-    // },
+    {
+      protocol: 'https',
+      hostname: 'lh3.googleusercontent.com'
+    },
+    {
+      protocol: 'https', // Can also be http
+      hostname: 'avatars.githubusercontent.com',
+      //port: '3000', // Example for local development server
+    },
   ],}
 
 };
